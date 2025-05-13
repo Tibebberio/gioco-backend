@@ -2,28 +2,27 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
+
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public"))); // Serve HTML/CSS/JS
 
-// Servire file statici dalla cartella 'public'
-app.use(express.static(path.join(__dirname, "public")));
-
+// Database file
 const dbFile = "./players.json";
 if (!fs.existsSync(dbFile)) fs.writeFileSync(dbFile, "{}");
 
-app.get("/", (req, res) => {
-  res.send("Server attivo!");
-});
-
+// API GET: profilo giocatore
 app.get("/profilo/:playerName", (req, res) => {
   const db = JSON.parse(fs.readFileSync(dbFile));
   const data = db[req.params.playerName] || null;
   res.json(data);
 });
 
+// API POST: aggiorna profilo
 app.post("/profilo/:playerName", (req, res) => {
   const db = JSON.parse(fs.readFileSync(dbFile));
   db[req.params.playerName] = req.body;
@@ -31,4 +30,7 @@ app.post("/profilo/:playerName", (req, res) => {
   res.json({ status: "ok" });
 });
 
-app.listen(port, () => console.log(`Server avviato su http://localhost:${port}`));
+// Avvio server
+app.listen(port, () => {
+  console.log(`✅ Server avviato su http://localhost:${port}`);
+});
