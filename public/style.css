@@ -1,0 +1,32 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.map-container {
+  flex: 2;
+  padding: 20px;
+  background: white;
+  overflow: auto;
+}
+
+.info-panel {
+  flex: 1;
+  background: #ffffff;
+  padding: 20px;
+  border-left: 2px solid #ccc;
+}
+
+.region:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  stroke: #333;
+  stroke-width: 1.5;
+}
