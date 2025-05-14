@@ -33,7 +33,6 @@
     <h1>🎮 Gioco Italia</h1>
     <p>Accedi con Google per iniziare</p>
 
-    <!-- Bottone Login Google -->
     <div id="g_id_onload"
          data-client_id="210471226801-657qaagbqs8qvobavqb4m6qa4tib4ifk.apps.googleusercontent.com"
          data-callback="handleCredentialResponse"
@@ -43,25 +42,37 @@
     <div class="g_id_signin" data-type="standard"></div>
   </div>
 
-  <!-- Script gestione token -->
   <script>
     function handleCredentialResponse(response) {
+      console.log("🔐 Google ha restituito:", response);
+
       const idToken = response.credential;
+
+      if (!idToken) {
+        console.error("❌ Nessun token ricevuto da Google.");
+        alert("Errore: token non ricevuto da Google.");
+        return;
+      }
+
+      console.log("📡 Inviando token al backend:", idToken);
 
       fetch("https://gioco-backend.onrender.com/login-google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken })
       })
-      .then(res => res.json())
-      .then(data => {
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || "Errore backend");
+        }
         console.log("✅ Login riuscito:", data);
         localStorage.setItem("utente", JSON.stringify(data));
         window.location.href = "home.html";
       })
       .catch(err => {
-        console.error("Errore login:", err);
-        alert("Errore nel login.");
+        console.error("❌ Errore login:", err);
+        alert("Errore nel login: " + err.message);
       });
     }
   </script>
