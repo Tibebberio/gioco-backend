@@ -13,6 +13,30 @@ let selectedRegion = null;
 let totalOil = 0;
 let totalGold = 0;
 
+function salvaRegioniConquistate() {
+  const regioniConquistate = Array.from(document.querySelectorAll('.region[data-owner="Giocatore 1"]')).map(region => ({
+    id: region.id,
+    oil: region.dataset.oil,
+    gold: region.dataset.gold,
+    owner: region.dataset.owner
+  }));
+  localStorage.setItem("regioniConquistate", JSON.stringify(regioniConquistate));
+}
+
+function caricaRegioniConquistate() {
+  const salvate = JSON.parse(localStorage.getItem("regioniConquistate"));
+  if (!salvate) return;
+  salvate.forEach(regionData => {
+    const region = document.getElementById(regionData.id);
+    if (region) {
+      region.dataset.owner = regionData.owner;
+      region.dataset.oil = regionData.oil;
+      region.dataset.gold = regionData.gold;
+      region.setAttribute("fill", "#ffc107");
+    }
+  });
+}
+
 function aggiornaGiocatore() {
   const conquered = Array.from(document.querySelectorAll('.region[data-owner="Giocatore 1"]')).map(region => ({
     id: region.id,
@@ -73,65 +97,14 @@ conquerBtn.addEventListener("click", () => {
     regionOwner.textContent = "Giocatore 1";
     aggiornaRisorse();
     aggiornaGiocatore();
+    salvaRegioniConquistate();
     alert(`${selectedRegion.dataset.name} conquistata!`);
   } else if (selectedRegion) {
     alert(`${selectedRegion.dataset.name} è già tua!`);
   }
 });
 
-buildMineBtn.addEventListener("click", () => {
-  if (selectedRegion && selectedRegion.dataset.owner === "Giocatore 1" && totalOil >= 50) {
-    selectedRegion.dataset.gold = parseInt(selectedRegion.dataset.gold) + 5;
-    totalOil -= 50;
-    aggiornaRisorse();
-    aggiornaGiocatore();
-    alert(`Miniera costruita in ${selectedRegion.dataset.name}. Produzione oro +5`);
-  } else {
-    alert("Non puoi costruire qui o non hai abbastanza petrolio!");
-  }
-});
-
-buildRefineryBtn.addEventListener("click", () => {
-  if (selectedRegion && selectedRegion.dataset.owner === "Giocatore 1" && totalGold >= 50) {
-    selectedRegion.dataset.oil = parseInt(selectedRegion.dataset.oil) + 5;
-    totalGold -= 50;
-    aggiornaRisorse();
-    aggiornaGiocatore();
-    alert(`Raffineria costruita in ${selectedRegion.dataset.name}. Produzione petrolio +5`);
-  } else {
-    alert("Non puoi costruire qui o non hai abbastanza oro!");
-  }
-});
-
-setInterval(() => {
-  document.querySelectorAll('.region[data-owner="Giocatore 1"]').forEach(region => {
-    totalOil += parseInt(region.dataset.oil);
-    totalGold += parseInt(region.dataset.gold);
-  });
-  totalOilEl.textContent = totalOil;
-  totalGoldEl.textContent = totalGold;
-  aggiornaGiocatore();
-}, 5000);
-
-window.addEventListener("DOMContentLoaded", () => {
-  fetch("https://gioco-backend.onrender.com/profilo/Giocatore%201")
-    .then(res => res.json())
-    .then(saved => {
-      if (saved && saved.conqueredRegions) {
-        saved.conqueredRegions.forEach(data => {
-          const region = document.getElementById(data.id);
-          if (region) {
-            region.dataset.owner = data.owner;
-            region.dataset.oil = data.oil;
-            region.dataset.gold = data.gold;
-            region.setAttribute("fill", "#ffc107");
-          }
-        });
-        totalOil = saved.totalOil || 0;
-        totalGold = saved.totalGold || 0;
-        totalOilEl.textContent = totalOil;
-        totalGoldEl.textContent = totalGold;
-        aggiornaGiocatore();
-      }
-    });
-});
+// Carica dati salvati all'avvio
+caricaRegioniConquistate();
+aggiornaRisorse();
+aggiornaGiocatore();
