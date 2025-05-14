@@ -16,6 +16,9 @@ app.use(express.static(path.join(__dirname, "public")));
 const dbFile = "./players.json";
 if (!fs.existsSync(dbFile)) fs.writeFileSync(dbFile, "{}");
 
+const mappaFile = "./mappa.json";
+if (!fs.existsSync(mappaFile)) fs.writeFileSync(mappaFile, "{}");
+
 app.get("/profilo/:playerName", (req, res) => {
   const db = JSON.parse(fs.readFileSync(dbFile));
   const data = db[req.params.playerName] || null;
@@ -71,6 +74,17 @@ app.get("/utenti", (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Errore nella lettura degli utenti" });
   }
+});
+
+// ✅ ROTTA PER LA MAPPA CONDIVISA
+app.get("/mappa", (req, res) => {
+  const mappa = JSON.parse(fs.readFileSync(mappaFile));
+  res.json(mappa);
+});
+
+app.post("/mappa", (req, res) => {
+  fs.writeFileSync(mappaFile, JSON.stringify(req.body, null, 2));
+  res.json({ status: "ok" });
 });
 
 // Serve la pagina index.html
