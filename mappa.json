@@ -1,21 +1,33 @@
 {
+  "ultima_modifica": "iniziale",
   "regioni": {
     "nord": {
+      "nome": "Nord",
       "proprietario": "Nessuno",
-      "color": "#cccccc"
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
     },
     "centro": {
+      "nome": "Centro",
       "proprietario": "Nessuno",
-      "color": "#cccccc"
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
     },
     "sud": {
+      "nome": "Sud",
       "proprietario": "Nessuno",
-      "color": "#cccccc"
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
     },
     "isole": {
+      "nome": "Isole",
       "proprietario": "Nessuno",
-      "color": "#cccccc"
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
     }
-  },
-  "ultima_modifica": "iniziale"
+  }
 }
