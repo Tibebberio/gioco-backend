@@ -1,29 +1,169 @@
 {
   "ultima_modifica": "iniziale",
   "regioni": {
-    "nord": {
-      "nome": "Nord",
+    "FR-H": {
+      "nome": "FR-H",
       "proprietario": "Nessuno",
       "colore": "#cccccc",
       "truppe": 0,
       "risorse": {}
     },
-    "centro": {
-      "nome": "Centro",
+    "IT-21": {
+      "nome": "IT-21",
       "proprietario": "Nessuno",
       "colore": "#cccccc",
       "truppe": 0,
       "risorse": {}
     },
-    "sud": {
-      "nome": "Sud",
+    "IT-23": {
+      "nome": "IT-23",
       "proprietario": "Nessuno",
       "colore": "#cccccc",
       "truppe": 0,
       "risorse": {}
     },
-    "isole": {
-      "nome": "Isole",
+    "IT-25": {
+      "nome": "IT-25",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-32": {
+      "nome": "IT-32",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-34": {
+      "nome": "IT-34",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-36": {
+      "nome": "IT-36",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-42": {
+      "nome": "IT-42",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-45": {
+      "nome": "IT-45",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-52": {
+      "nome": "IT-52",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-55": {
+      "nome": "IT-55",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-57": {
+      "nome": "IT-57",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-62": {
+      "nome": "IT-62",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-67": {
+      "nome": "IT-67",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-72": {
+      "nome": "IT-72",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-75": {
+      "nome": "IT-75",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-77": {
+      "nome": "IT-77",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-78": {
+      "nome": "IT-78",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-82": {
+      "nome": "IT-82",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT-88": {
+      "nome": "IT-88",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "IT_65": {
+      "nome": "IT_65",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "MT": {
+      "nome": "MT",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "SM": {
+      "nome": "SM",
+      "proprietario": "Nessuno",
+      "colore": "#cccccc",
+      "truppe": 0,
+      "risorse": {}
+    },
+    "VA": {
+      "nome": "VA",
       "proprietario": "Nessuno",
       "colore": "#cccccc",
       "truppe": 0,
