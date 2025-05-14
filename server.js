@@ -2,12 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
-const { OAuth2Client } = require("google-auth-library"); // 👈 Aggiunto per Google Login
+const { OAuth2Client } = require("google-auth-library");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-const client = new OAuth2Client("210471226801-657qaagbqs8qvobavqb4m6qa4tib4ifk.apps.googleusercontent.com"); // 👈 Client ID Google
+const client = new OAuth2Client("210471226801-657qaagbqs8qvobavqb4m6qa4tib4ifk.apps.googleusercontent.com");
 
 app.use(cors());
 app.use(express.json());
@@ -60,6 +60,16 @@ app.post("/login-google", async (req, res) => {
   } catch (error) {
     console.error("❌ Errore verifica token Google:", error);
     res.status(401).json({ error: "Token non valido" });
+  }
+});
+
+// ✅ ROTTA PER VISUALIZZARE TUTTI GLI UTENTI
+app.get("/utenti", (req, res) => {
+  try {
+    const db = JSON.parse(fs.readFileSync(dbFile));
+    res.json(db);
+  } catch (error) {
+    res.status(500).json({ error: "Errore nella lettura degli utenti" });
   }
 });
 
