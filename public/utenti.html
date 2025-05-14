@@ -26,10 +26,21 @@
     h1 {
       text-align: center;
     }
+    #searchInput {
+      margin: 20px auto;
+      display: block;
+      padding: 10px;
+      width: 50%;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
   <h1>Utenti Registrati</h1>
+  <input type="text" id="searchInput" placeholder="Cerca per nome o email..." />
+
   <table id="utentiTable">
     <thead>
       <tr>
@@ -42,24 +53,42 @@
   </table>
 
   <script>
+    let utentiData = {};
+
+    function renderTable(data) {
+      const tbody = document.querySelector("#utentiTable tbody");
+      tbody.innerHTML = "";
+      Object.entries(data).forEach(([id, user]) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${id}</td>
+          <td>${user.name}</td>
+          <td>${user.email}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
     fetch("/utenti")
       .then(res => res.json())
       .then(data => {
-        const tbody = document.querySelector("#utentiTable tbody");
-        Object.entries(data).forEach(([id, user]) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${id}</td>
-            <td>${user.name}</td>
-            <td>${user.email}</td>
-          `;
-          tbody.appendChild(row);
-        });
+        utentiData = data;
+        renderTable(utentiData);
       })
       .catch(err => {
         alert("Errore nel caricamento degli utenti");
         console.error(err);
       });
+
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      const filtered = Object.fromEntries(
+        Object.entries(utentiData).filter(([id, user]) =>
+          user.name.toLowerCase().includes(query) || user.email.toLowerCase().includes(query)
+        )
+      );
+      renderTable(filtered);
+    });
   </script>
 </body>
 </html>
