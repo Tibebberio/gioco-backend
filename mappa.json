@@ -1,0 +1,21 @@
+{
+  "regioni": {
+    "nord": {
+      "proprietario": "Nessuno",
+      "color": "#cccccc"
+    },
+    "centro": {
+      "proprietario": "Nessuno",
+      "color": "#cccccc"
+    },
+    "sud": {
+      "proprietario": "Nessuno",
+      "color": "#cccccc"
+    },
+    "isole": {
+      "proprietario": "Nessuno",
+      "color": "#cccccc"
+    }
+  },
+  "ultima_modifica": "iniziale"
+}
