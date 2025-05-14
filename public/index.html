@@ -8,7 +8,7 @@
 <title>Gioco Italia</title>
 <link href="style.css" rel="stylesheet"/>
 </head>
-<body><script>
+<body><div id="popupInfo" style="display:none; position:fixed; top:50px; left:50%; transform:translateX(-50%); background:#fff; padding:20px; border:1px solid #ccc; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.2); z-index:1000; font-family:Arial, sans-serif;">Info regione...</div><script>
 const utente = JSON.parse(localStorage.getItem("utente"));
 if (!utente || !utente.userId) {
   window.location.href = "login.html";
@@ -181,5 +181,103 @@ if (!utente || !utente.userId) {
       }
     }
   </script>
-</body>
+<script>
+// 🔄 Carica dati mappa da backend
+fetch("/mappa")
+  .then(res => res.json())
+  .then(mappa => {
+    const regioni = mappa.regioni;
+    for (const id in regioni) {
+      const regione = regioni[id];
+      const el = document.getElementById(id);
+      if (el) {
+        el.setAttribute("fill", regione.colore || "#cccccc");
+
+        // Optional: tooltip
+        el.setAttribute("title", `${regione.nome}\nTruppe: ${regione.truppe}\nProprietario: ${regione.proprietario}`);
+      }
+    }
+  })
+  .catch(err => {
+    console.error("Errore caricamento mappa:", err);
+  });
+
+
+// 👆 Interazione al click su ogni regione
+document.querySelectorAll("svg [id]").forEach(region => {
+  region.addEventListener("click", () => {
+    const id = region.id;
+    alert("Hai cliccato sulla regione: " + id);
+    // Qui puoi aprire un menu, mostrare info, o mandare una richiesta al backend
+  });
+});
+
+
+const popup = document.getElementById("popupInfo");
+
+document.querySelectorAll("svg [id]").forEach(region => {
+  region.addEventListener("click", () => {
+    const id = region.id;
+    const data = regioni[id];
+    if (!data) return;
+
+    popup.innerHTML = `
+      <strong>Regione:</strong> ${data.nome}<br>
+      <strong>Proprietario:</strong> ${data.proprietario}<br>
+      <strong>Truppe:</strong> ${data.truppe}<br>
+      <strong>Risorse:</strong> ${Object.entries(data.risorse).map(([k, v]) => k + ': ' + v).join(', ') || 'Nessuna'}
+      <br><br><button onclick="document.getElementById('popupInfo').style.display='none'">Chiudi</button>
+    `;
+    popup.style.display = "block";
+  });
+});
+
+
+let utente = JSON.parse(localStorage.getItem("utente") || "{}");
+
+document.querySelectorAll("svg [id]").forEach(region => {
+  region.addEventListener("click", () => {
+    const id = region.id;
+    const data = regioni[id];
+    if (!data) return;
+
+    popup.innerHTML = `
+      <strong>Regione:</strong> ${data.nome}<br>
+      <strong>Proprietario:</strong> ${data.proprietario}<br>
+      <strong>Truppe:</strong> ${data.truppe}<br>
+      <strong>Risorse:</strong> ${Object.entries(data.risorse).map(([k, v]) => k + ': ' + v).join(', ') || 'Nessuna'}
+      <br><br>
+      <button onclick="document.getElementById('popupInfo').style.display='none'">Chiudi</button>
+      <button onclick="conquistaRegione('${id}')">Conquista regione</button>
+    `;
+    popup.style.display = "block";
+  });
+});
+
+// Funzione per aggiornare la mappa lato server
+function conquistaRegione(id) {
+  if (!utente || !utente.userId) {
+    alert("Devi essere loggato per conquistare.");
+    return;
+  }
+  regioni[id].proprietario = utente.userId;
+  regioni[id].colore = "#00bfff"; // colore personalizzato per esempio
+  regioni[id].truppe = 100;
+
+  fetch("/mappa", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ regioni, ultima_modifica: new Date().toISOString() })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("Regione conquistata con successo!");
+    location.reload(); // aggiorna la mappa visivamente
+  })
+  .catch(err => {
+    console.error("Errore nel salvataggio mappa:", err);
+    alert("Errore durante la conquista.");
+  });
+}
+</script></body>
 </html>
