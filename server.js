@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-const dbFile = "./players.json";
+const dbFile = "./players";
 if (!fs.existsSync(dbFile)) fs.writeFileSync(dbFile, "{}");
 
 app.get("/profilo/:playerName", (req, res) => {
