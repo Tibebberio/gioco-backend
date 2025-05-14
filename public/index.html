@@ -167,7 +167,19 @@ if (!utente || !utente.userId) {
 <p><strong>Oro Totale:</strong> <span id="totalGold">0</span></p>
 </div>
 </div>
-  
+<script src="script.js"></script>
+<div style="margin-top: 20px;">
+<button onclick="resetGioco()" style="padding: 10px 20px; background: crimson; color: white; border: none; border-radius: 6px;">
+      🔁 Reset Partita
+    </button>
+</div>
+<script>
+    function resetGioco() {
+      if (confirm("Sei sicuro di voler cancellare tutti i progressi?")) {
+        localStorage.removeItem("profiloGiocatore");
+        location.reload();
+      }
+    }
   </script>
 <script>
 // 🔄 Carica dati mappa da backend
